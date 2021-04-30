@@ -5,19 +5,110 @@
 <script type="text/javascript">
 let Number1;
 let Number2;
+let Number1Arr = [];
 let Number1String = "";
-let operator = false; // this is if a + / - * have been added yet
+let Number2Arr = [];
+let Number2String = "";
+let isOperator = false; // this is if a + / - * have been added yet
+let TheOperator;
 		function SetNumbers(int)
 		{
-			if()
-			let Number1String = "";
+			//Number1String = "";
+			if(isOperator === false)
+			{
+				Number1Arr.push(int);
+				Number1String = Number1Arr.join("");
+				Number1 = parseInt(Number1String);
+			 	//Number1String.push(int); Refuses to work with strings
+			}
+			else
+			{
+				if(isOperator === true)
+				{
+					Number2Arr.push(int);
+					Number2String = Number2Arr.join("");
+					Number2 = parseInt(Number2String);
+					//Number2String.Push(int);
+				}
+			}
+			UpdateNumberBoxWithStrings(Number1String, Number2String);
+		}
+		function AddOperators (Operator)
+		{
+			isOperator = true;
+			TheOperator = Operator;
+			UpdateNumberBoxWithStrings(Number1String, Number2String);
+		}
+		function UpdateNumberBoxWithStrings(String1, String2)
+		{
+			if(isOperator == true)
+			{
+			let equation = String1 + TheOperator + String2;
+			console.log(equation);
+			document.getElementById('NumberBox').value = equation;
+			}
+			else
+			{
+				let equation = String1;
+			console.log(equation);
+			document.getElementById('NumberBox').value = equation;
+			}
+		}
+		function SolveEquation()
+		{
+			switch (TheOperator)
+			{
+				case '+':
+					let sum = Number1 + Number2;
+					DisplayAnswer(sum);
+					break;
+				case '-':
+					let remainder = Number1 - Number2;
+					DisplayAnswer(remainder);
+					break;
+				case '*':
+					let answer = Number1 * Number2;
+					DisplayAnswer(answer);
+				break;
+				case '/':
+					let Divedened = Number1 / Number2;
+					DisplayAnswer(Divedened);
+				break;
+				case undefined:
+					break;
+			}
+		}
+		function DisplayAnswer(answer)
+		{
 
-			
+			console.log(answer);
+			document.getElementById('NumberBox').value = answer;
+			//IT WORKS! now we set all the variables empty
+			Number1Arr = [];
+			Number1String = ""; 
+			Number2Arr = [];
+			Number2String = "";
+			isOperator = false;
+			TheOperator = "";
 		}
 </script>
 </head>
 <body>
 <input type="text" id="NumberBox">	
 <button onclick="SetNumbers(0)">0</button>
+<button onclick="SetNumbers(1)">1</button>
+<button onclick="SetNumbers(2)">2</button>
+<button onclick="SetNumbers(3)">3</button>
+<button onclick="SetNumbers(4)">4</button>
+<button onclick="SetNumbers(5)">5</button>
+<button onclick="SetNumbers(6)">6</button>
+<button onclick="SetNumbers(7)">7</button>
+<button onclick="SetNumbers(8)">8</button>
+<button onclick="SetNumbers(9)">9</button>
+<button onclick="AddOperators('+')">+</button>
+<button onclick="AddOperators('-')">-</button>
+<button onclick="AddOperators('/')">/</button>
+<button onclick="AddOperators('*')">*</button>
+<button onclick="SolveEquation()">=</button>
 </body>
 </html>
